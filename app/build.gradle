@@ -1,0 +1,41 @@
+﻿plugins { id "com.android.application" }
+
+import java.util.Properties
+
+def lp = new Properties()
+def lpFile = rootProject.file("local.properties")
+if (lpFile.exists()) lp.load(new FileInputStream(lpFile))
+def botToken = lp.getProperty("botToken", "")
+
+android {
+  namespace "xss.nmz.gallgrab_nmz"
+  compileSdk 34
+
+  defaultConfig {
+    applicationId "xss.nmz.gallgrab_nmz"
+    minSdk 23
+    targetSdk 34
+    versionCode 1
+    versionName "1.0"
+    buildConfigField "String", "TG_BOT_TOKEN", "\"${botToken}\""
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+    }
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+}
+
+dependencies {
+  implementation "androidx.appcompat:appcompat:1.7.1"
+  implementation "androidx.activity:activity:1.11.0"
+  implementation "com.google.android.material:material:1.12.0"
+  implementation "com.squareup.okhttp3:okhttp:5.2.1"
+}
